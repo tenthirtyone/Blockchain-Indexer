@@ -1,6 +1,9 @@
 const express = require('express');
-const app = express();
+const request = require('request');
 const txs = require('./txs');
+const tokenizer = express();
+const mapper = express();
+
 let idx = 0;
 
 const tokens = txs.map(tx => {
@@ -18,11 +21,31 @@ const tokens = txs.map(tx => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.send(tokens[idx]);
-  idx++;
+tokenizer.get('/', (req, res) => {
+  if (idx < tokens.length - 1) {
+    res.send(tokens[idx]);
+    idx++;
+  } else {
+    res.status(204).send();
+  }
 });
 
-app.listen(3000, () => {
+tokenizer.listen(3000, () => {
   console.log('listnin on port 3000');
 });
+
+mapToken();
+
+function mapToken() {
+  setTimeout(() => {
+    request('http://localhost:3000', (err, res, body) => {
+      console.log(res.statusCode)
+      if (res.statusCode === 200) {
+        console.log(body);
+        mapToken();
+      } else {
+        console.log('mapping complete');
+      }
+    })
+  });
+}

@@ -23,6 +23,7 @@
   "homepage": "https://github.com/tenthirtyone/bitcoin_indexer#readme",
   "dependencies": {
     "express": "^4.15.3",
+    "request": "^2.81.0",
     "winston": "^2.3.1"
   }
 }
