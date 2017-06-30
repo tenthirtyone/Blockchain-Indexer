@@ -7,18 +7,20 @@ const mapper = express();
 let idx = 0;
 
 const tokens = txs.map(tx => {
-  return {
-    inputs: tx.inputs.map(input => {
+  return [
+    tx.inputs.map(input => {
       if (input.prev_out) {
-        return input.prev_out.addr + ':' + input.prev_out.value
+        return input.prev_out.addr + ':' + -input.prev_out.value
       } else {
         return null;
       }
     }),
-    outputs: tx.out.map(output => {
+    tx.out.map(output => {
       return output.addr + ':' + output.value;
     })
-  }
+  ].reduce((a, b) => {
+    return a.concat(b);
+  });
 });
 
 tokenizer.get('/', (req, res) => {
@@ -39,7 +41,6 @@ mapToken();
 function mapToken() {
   setTimeout(() => {
     request('http://localhost:3000', (err, res, body) => {
-      console.log(res.statusCode)
       if (res.statusCode === 200) {
         console.log(body);
         mapToken();
