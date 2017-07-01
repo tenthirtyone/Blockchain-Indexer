@@ -3,12 +3,15 @@ const request = require('request');
 const txs = require('./txs');
 const tokenizer = express();
 const mapper = express();
+const addressStore = express();
 
 let idx = 0;
 
 let addressMap = {};
 let addressMapKeys = [];
 let addressMapIdx = 0;
+
+const startTime = Date.now();
 
 const tokens = txs.map(tx => {
   return [
@@ -77,7 +80,7 @@ function mapToken() {
         try {
           token = JSON.parse(token);
         } catch(e) {
-          console.log(e)
+          //console.log(e)
           token = null;
         }
         if (token) {
@@ -112,11 +115,12 @@ function reduceAddresses() {
           address.vals = address.vals.reduce((a, b) => {
             return a+b;
           })
-          console.log(address);
+          //console.log(address);
         }
         reduceAddresses();
       } else {
         console.log('reduce complete');
+        console.log((Date.now() - startTime) / 1000);
       }
     })
   });
