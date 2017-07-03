@@ -2,11 +2,13 @@ const express = require('express');
 const cluster = require('cluster');
 const tokenizer = require('./lib/tokenizer');
 const mapper = require('./lib/mapper');
+const addressStore = require('./lib/addressStore');
 const reducer = require('./lib/reducer');
 
 const indexer = {
   tokenizer: tokenizer,
   mapper: mapper,
+  addressStore: addressStore,
   reducer: reducer,
 }
 
