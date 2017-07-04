@@ -5,6 +5,8 @@ const tokenizer = express();
 const mapper = express();
 
 let idx = 0;
+let counter = 0;
+let startTime = Date.now();
 
 let addressMap = {};
 let addressMapKeys = [];
@@ -37,11 +39,18 @@ const tokens = txs.map(tx => {
   });
 
 tokenizer.get('/', (req, res) => {
+  counter++;
+  if (counter % 10000 === 0) {
+    console.log(counter);
+    console.log((Date.now() - startTime) / 1000);
+  }
   if (idx < tokens.length - 1) {
     res.send(tokens[idx]);
     idx++;
   } else {
-    res.status(204).send();
+    idx = 0;
+    res.send(tokens[idx]);
+    idx++;
   }
 });
 
@@ -77,7 +86,7 @@ function mapToken() {
         try {
           token = JSON.parse(token);
         } catch(e) {
-          console.log(e)
+          //console.log(e)
           token = null;
         }
         if (token) {
