@@ -3,8 +3,11 @@ Distributed system concept. Connect to multiple blockchain data sources and map 
 ![Alt text](http://weaponizedmath.com/images/indexer.png "Optional title")
 
 T - Tokenizer. Gets blockchain data for mappers.
+
 M - Maps address: value pairs from inputs and outputs.
+
 A - Address Store. Ghetto Redis. Mappers store data here. Starts reducers when mappers finish.
+
 R - Reducers. Sums the address balances.
 
 # Usage
