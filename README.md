@@ -31,4 +31,6 @@ node app.js mapper 1
 
 The tokenizer will stop after 1,000,000 txs.
 
-Everything runs over sockets but has a REST API for testing/debugging.
+Everything runs over sockets but has a REST API for testing/debugging - use branch debug.
+
+Shameless self-promo: http://weaponizedmath.com/2017/07/03/blockchain-indexer-1/
