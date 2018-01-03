@@ -1,15 +1,11 @@
 const express = require('express');
 const cluster = require('cluster');
-const tokenizer = require('./lib/tokenizer');
-const mapper = require('./lib/mapper');
-const addressStore = require('./lib/addressStore');
-const reducer = require('./lib/reducer');
+const Tokenizer = require('./lib/tokenizer');
+const Mapper = require('./lib/mapper');
 
 const indexer = {
-  tokenizer: tokenizer,
-  mapper: mapper,
-  addressStore: addressStore,
-  reducer: reducer,
+  tokenizer: Tokenizer,
+  mapper: Mapper,
 }
 
 init(process.argv[2], process.argv[3]);
@@ -25,6 +21,8 @@ function init(type, numCPU)  {
       console.log(`Worker ${process.pid} has died`);
     });
   } else {
-    indexer[type].start();
+    const service = new indexer[type]();
+    service.start();
   }
 }
+

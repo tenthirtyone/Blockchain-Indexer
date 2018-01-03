@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/tenthirtyone/bitcoin_indexer#readme",
   "dependencies": {
+    "bcoin": "^1.0.0-beta.15",
+    "bcoin-mongo-api": "git+https://github.com/bitpay/bcoin-mongo-api.git",
     "blockchain.info": "^2.8.0",
     "express": "^4.15.3",
     "request": "^2.81.0",
