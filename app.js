@@ -2,10 +2,12 @@ const express = require('express');
 const cluster = require('cluster');
 const Tokenizer = require('./lib/tokenizer');
 const Mapper = require('./lib/mapper');
+const Store = require('./lib/inputStore');
 
 const indexer = {
   tokenizer: Tokenizer,
   mapper: Mapper,
+  store: Store
 }
 
 init(process.argv[2], process.argv[3]);
